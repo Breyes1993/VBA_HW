@@ -1,0 +1,48 @@
+'Ticker= Cells(i,1).value (String)
+'Volume=Cells(i,7).value (Double)
+'Ticker_Name = (Range "I") or Cells(i,9).value
+'Volume_Total = (Range "J") or Cells(i,10).value
+
+Sub VolumePerTicker()
+
+For Each ws In Worksheets
+
+Dim Worksheet As String
+
+LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+ws.Cells(1, 9).Value = "Ticker"
+ws.Cells(1, 10).Value = "Total Stock Volume"
+
+Dim Ticker_Name As String
+
+Dim Volume_Total As Double
+Volume_Total = 0
+
+Dim Table_Row As Integer
+Table_Row = 2
+
+For i = 2 To LastRow
+
+If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+    Ticker_Name = Cells(i, 1).Value
+    Volume_Total = Volume_Total + Cells(i, 7).Value
+
+    Range("I" & Table_Row).Value = Ticker_Name
+    Range("J" & Table_Row).Value = Volume_Total
+
+    Table_Row = Table_Row + 1
+
+    Volume_Total = 0
+
+Else
+
+Volume_Total = Volume_Total + Cells(i, 7).Value
+
+End If
+
+Next i
+
+Next ws
+
+End Sub
